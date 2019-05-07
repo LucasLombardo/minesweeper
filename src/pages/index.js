@@ -13,8 +13,8 @@ const Adjusters = styled.div`
 `
 
 const IndexPage = () => {
-  const [width, setWidth] = useState(6)
-  const [mines, setMines] = useState(6)
+  const [width, setWidth] = useState(10)
+  const [mines, setMines] = useState(10)
 
   const incrementWidth = () => {
     if (width < 25) setWidth(width + 1)
