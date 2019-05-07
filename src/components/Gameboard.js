@@ -48,9 +48,16 @@ function initializeBoard(boardWidth, mineCount) {
   }
   // assign mines
   for (let i = 0; i < mineCount; i++) {
-    const randomSpaceIndex = Math.floor(Math.random() * spaceCount)
-    spaces[randomSpaceIndex].value = -1
-    spaces[randomSpaceIndex].isMine = true
+    let set = false;
+    while(!set) {
+      const randomSpaceIndex = Math.floor(Math.random() * spaceCount)
+      const space = spaces[randomSpaceIndex];
+      if(!space.isMine) {
+        spaces[randomSpaceIndex].value = -1
+        spaces[randomSpaceIndex].isMine = true
+        set = true;
+      }
+    }
   }
   // assign numbers
   spaces.map((space, i) => {
