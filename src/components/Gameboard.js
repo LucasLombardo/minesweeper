@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
 import Space from './Space'
@@ -35,11 +35,7 @@ function countContiguousMines(spaces, i){
     return contiguousMines.length;
 }
 
-const Gameboard = ({boardWidth, mineCount}) => {
-    const [gameStatus, setGameStatus] = useState(`live`);
-    const [exposedSpaces, setExposedSpaces] = useState(0);
-    const boardState = { gameStatus, setGameStatus, exposedSpaces, setExposedSpaces };
-
+function initializeBoard(boardWidth, mineCount) {
     // initialize board with coordinates
     const spaceCount = boardWidth ** 2;
     let spaces = [];
@@ -66,7 +62,19 @@ const Gameboard = ({boardWidth, mineCount}) => {
             return space;
         }
     });
+    return spaces;
+}
 
+const Gameboard = ({boardWidth, mineCount}) => {
+    const [status, setStatus] = useState(`live`);
+    const [exposedSpaces, setExposedSpaces] = useState(0);
+    const [spaces, setSpaces] = useState([]);
+    
+    useEffect(() => {
+        setSpaces(initializeBoard(boardWidth, mineCount));
+    }, [])
+    
+    const boardState = { status, setStatus, exposedSpaces, setExposedSpaces };
     return (
         <Board style={{gridTemplateColumns:`repeat(${boardWidth}, ${SPACE_WIDTH})`}}>
             {spaces.map((s, i) => (
