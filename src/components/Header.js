@@ -13,7 +13,7 @@ const TopBanner = styled.header`
 const Header = () => {
   return (
     <TopBanner>
-      <h1>Minesweeper 💣 🚩</h1>
+      <h1>Minesweeper</h1>
     </TopBanner>
   )
 }
