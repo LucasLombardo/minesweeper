@@ -27,7 +27,7 @@ const Layout = ({ children }) => (
             paddingTop: 0,
           }}
         >
-          <main style={{minHeight: `70vh`}}>{children}</main>
+          <main style={{ minHeight: `70vh` }}>{children}</main>
           <footer>
             © {new Date().getFullYear()}, Built with
             {` `}
