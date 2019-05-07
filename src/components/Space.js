@@ -1,8 +1,13 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 
-const Space = ({ spaceData, boardState }) => {
+const Space = ({ spaceData, boardState, boardSettings }) => {
   const [showSpace, setShowSpace] = useState(false)
   const [flagged, setFlagged] = useState(false)
+
+  useEffect(() => {
+    setShowSpace(false)
+    setFlagged(false)
+  }, [boardSettings])
 
   const handleClick = () => {
     const { exposedSpaces, setExposedSpaces, status, setStatus } = boardState

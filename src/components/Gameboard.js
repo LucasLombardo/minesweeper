@@ -84,12 +84,13 @@ const Gameboard = ({ boardWidth, mineCount }) => {
   }, [boardWidth, mineCount])
 
   const boardState = { status, setStatus, exposedSpaces, setExposedSpaces }
+  const boardSettings = `${boardWidth}, ${mineCount}`;
   return (
     <Board
       style={{ gridTemplateColumns: `repeat(${boardWidth}, ${SPACE_WIDTH})` }}
     >
       {spaces.map((s, i) => (
-        <Space key={s.coords} spaceData={s} boardState={boardState} />
+        <Space key={s.coords} spaceData={s} boardState={boardState} boardSettings={boardSettings} />
       ))}
     </Board>
   )
