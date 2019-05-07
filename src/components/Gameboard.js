@@ -19,7 +19,11 @@ function countContiguousMines(spaces, i){
     const len = spaces.length;
     // get valid contigous spaces
     const w = Math.sqrt(len);
-    const indexChecks = [-w-1, -w, -w+1, -1, 1, w-1, w, w+1];
+    let indexChecks = [-w, w];
+    const leftChecks = [-w-1, -1, w-1];
+    const rightChecks = [-w+1, 1, w+1];
+    if(i % w !== 0) indexChecks.push(...leftChecks);
+    if((i+1) % w !== 0) indexChecks.push(...rightChecks);
     const contiguousIndexes = indexChecks.map(check => {
         const contiguousIndex = check+i;
         return contiguousIndex;
