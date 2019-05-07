@@ -48,14 +48,14 @@ function initializeBoard(boardWidth, mineCount) {
   }
   // assign mines
   for (let i = 0; i < mineCount; i++) {
-    let set = false;
-    while(!set) {
+    let set = false
+    while (!set) {
       const randomSpaceIndex = Math.floor(Math.random() * spaceCount)
-      const space = spaces[randomSpaceIndex];
-      if(!space.isMine) {
+      const space = spaces[randomSpaceIndex]
+      if (!space.isMine) {
         spaces[randomSpaceIndex].value = -1
         spaces[randomSpaceIndex].isMine = true
-        set = true;
+        set = true
       }
     }
   }
@@ -84,13 +84,18 @@ const Gameboard = ({ boardWidth, mineCount }) => {
   }, [boardWidth, mineCount])
 
   const boardState = { status, setStatus, exposedSpaces, setExposedSpaces }
-  const boardSettings = `${boardWidth}, ${mineCount}`;
+  const boardSettings = `${boardWidth}, ${mineCount}`
   return (
     <Board
       style={{ gridTemplateColumns: `repeat(${boardWidth}, ${SPACE_WIDTH})` }}
     >
       {spaces.map((s, i) => (
-        <Space key={s.coords} spaceData={s} boardState={boardState} boardSettings={boardSettings} />
+        <Space
+          key={s.coords}
+          spaceData={s}
+          boardState={boardState}
+          boardSettings={boardSettings}
+        />
       ))}
     </Board>
   )
