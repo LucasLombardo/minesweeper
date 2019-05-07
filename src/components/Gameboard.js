@@ -3,12 +3,12 @@ import styled from "styled-components"
 
 import Space from "./Space"
 
-const SPACE_WIDTH = `70px`
+const SPACE_WIDTH = `40px`
 
 const Board = styled.div`
   display: grid;
   justify-content: center;
-  margin: 2em auto;
+  margin: 0 auto;
   grid-gap: 4px;
   button {
     height: ${SPACE_WIDTH};
@@ -74,7 +74,7 @@ const Gameboard = ({ boardWidth, mineCount }) => {
 
   useEffect(() => {
     setSpaces(initializeBoard(boardWidth, mineCount))
-  }, [])
+  }, [boardWidth, mineCount])
 
   const boardState = { status, setStatus, exposedSpaces, setExposedSpaces }
   return (
