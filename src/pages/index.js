@@ -21,6 +21,9 @@ const IndexPage = () => {
   }
   const decrementWidth = () => {
     if (width > 1) setWidth(width - 1)
+    if ((width - 1) ** 2 < mines) {
+      setMines((width - 1) ** 2)
+    }
   }
 
   const incrementMines = () => {
