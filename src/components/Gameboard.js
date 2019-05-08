@@ -84,9 +84,31 @@ const Gameboard = ({ boardWidth, mineCount }) => {
   }, [boardWidth, mineCount])
 
   const triggerSpace = i => {
+    // triggers a space to be exposed
     const newSpaces = [...spaces]
     newSpaces[i].isTriggered = true
     setSpaces(newSpaces)
+  }
+
+  const propagate = i => {
+    // triggers surrounding spaces
+    const len = spaces.length
+    // get valid contigous spaces
+    const w = Math.sqrt(len)
+    let indexChecks = [-w, w]
+    const leftChecks = [-w - 1, -1, w - 1]
+    const rightChecks = [-w + 1, 1, w + 1]
+    if (i % w !== 0) indexChecks.push(...leftChecks)
+    if ((i + 1) % w !== 0) indexChecks.push(...rightChecks)
+    const contiguousIndexes = indexChecks
+      .map(check => {
+        const contiguousIndex = check + i
+        return contiguousIndex
+      })
+      .filter(index => index > -1 && index < len)
+    contiguousIndexes.forEach(index => {
+      triggerSpace(index)
+    })
   }
 
   const boardState = { status, setStatus, exposedSpaces, setExposedSpaces }
@@ -103,10 +125,10 @@ const Gameboard = ({ boardWidth, mineCount }) => {
             boardState={boardState}
             boardSettings={boardSettings}
             isTriggered={s.isTriggered}
+            propagate={() => propagate(i)}
           />
         ))}
       </Board>
-      <button onClick={() => triggerSpace(2)}>trigger</button>
     </>
   )
 }
