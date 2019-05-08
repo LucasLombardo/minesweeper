@@ -83,21 +83,31 @@ const Gameboard = ({ boardWidth, mineCount }) => {
     setSpaces(initializeBoard(boardWidth, mineCount))
   }, [boardWidth, mineCount])
 
+  const triggerSpace = i => {
+    const newSpaces = [...spaces]
+    newSpaces[i].isTriggered = true
+    setSpaces(newSpaces)
+  }
+
   const boardState = { status, setStatus, exposedSpaces, setExposedSpaces }
   const boardSettings = `${boardWidth}, ${mineCount}`
   return (
-    <Board
-      style={{ gridTemplateColumns: `repeat(${boardWidth}, ${SPACE_WIDTH})` }}
-    >
-      {spaces.map((s, i) => (
-        <Space
-          key={s.coords}
-          spaceData={s}
-          boardState={boardState}
-          boardSettings={boardSettings}
-        />
-      ))}
-    </Board>
+    <>
+      <Board
+        style={{ gridTemplateColumns: `repeat(${boardWidth}, ${SPACE_WIDTH})` }}
+      >
+        {spaces.map((s, i) => (
+          <Space
+            key={s.coords}
+            spaceData={s}
+            boardState={boardState}
+            boardSettings={boardSettings}
+            isTriggered={s.isTriggered}
+          />
+        ))}
+      </Board>
+      <button onClick={() => triggerSpace(2)}>trigger</button>
+    </>
   )
 }
 

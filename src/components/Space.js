@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react"
 
-const Space = ({ spaceData, boardState, boardSettings }) => {
+const Space = ({ spaceData, boardState, boardSettings, isTriggered }) => {
   const [showSpace, setShowSpace] = useState(false)
   const [flagged, setFlagged] = useState(false)
 
   useEffect(() => {
-    setShowSpace(false)
+    setShowSpace(!!isTriggered)
     setFlagged(false)
-  }, [boardSettings])
+  }, [boardSettings, isTriggered])
 
   const handleClick = () => {
     const { exposedSpaces, setExposedSpaces, status, setStatus } = boardState
