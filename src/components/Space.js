@@ -7,6 +7,7 @@ const Space = ({
   isTriggered,
   propagate,
   triggerSpace,
+  checkWin,
 }) => {
   const [showSpace, setShowSpace] = useState(false)
   const [flagged, setFlagged] = useState(false)
@@ -21,8 +22,12 @@ const Space = ({
     const { status, setStatus } = boardState
     setShowSpace(true)
     triggerSpace()
-    if (spaceData.isMine) setStatus('loss')
-    if (spaceData.value === 0) propagate()
+    if (spaceData.isMine) {
+      setStatus("loss")
+    } else {
+      checkWin()
+      if (spaceData.value === 0) propagate()
+    }
   }
 
   const handleLeftClick = e => {

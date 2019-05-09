@@ -82,6 +82,15 @@ const Gameboard = ({ boardWidth, mineCount }) => {
     setSpaces(initializeBoard(boardWidth, mineCount))
   }, [boardWidth, mineCount])
 
+  const checkWin = () => {
+    if (status === "live") {
+      // get total number of exposed spaces
+      const exposedCount = spaces.filter(s => s.isTriggered).length
+      const countNeeded = boardWidth ** 2 - mineCount
+      if (exposedCount === countNeeded) setStatus("won")
+    }
+  }
+
   const triggerSpace = i => {
     // triggers a space to be exposed
     const newSpaces = [...spaces]
@@ -108,6 +117,7 @@ const Gameboard = ({ boardWidth, mineCount }) => {
     contiguousIndexes.forEach(index => {
       triggerSpace(index)
     })
+    checkWin()
   }
 
   const boardState = { status, setStatus }
@@ -127,10 +137,15 @@ const Gameboard = ({ boardWidth, mineCount }) => {
             isTriggered={s.isTriggered}
             propagate={() => propagate(i)}
             triggerSpace={() => triggerSpace(i)}
+            checkWin={checkWin}
           />
         ))}
       </Board>
-      <button onClick={() => console.log(spaces.filter(s => s.isTriggered).length)}>cll</button>
+      <button
+        onClick={() => console.log(spaces.filter(s => s.isTriggered).length)}
+      >
+        cll
+      </button>
     </>
   )
 }
