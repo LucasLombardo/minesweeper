@@ -76,7 +76,6 @@ function initializeBoard(boardWidth, mineCount) {
 
 const Gameboard = ({ boardWidth, mineCount }) => {
   const [status, setStatus] = useState(`live`)
-  const [exposedSpaces, setExposedSpaces] = useState(0)
   const [spaces, setSpaces] = useState([])
 
   useEffect(() => {
@@ -111,10 +110,11 @@ const Gameboard = ({ boardWidth, mineCount }) => {
     })
   }
 
-  const boardState = { status, setStatus, exposedSpaces, setExposedSpaces }
+  const boardState = { status, setStatus }
   const boardSettings = `${boardWidth}, ${mineCount}`
   return (
     <>
+      <p>{status}</p>
       <Board
         style={{ gridTemplateColumns: `repeat(${boardWidth}, ${SPACE_WIDTH})` }}
       >
@@ -126,9 +126,11 @@ const Gameboard = ({ boardWidth, mineCount }) => {
             boardSettings={boardSettings}
             isTriggered={s.isTriggered}
             propagate={() => propagate(i)}
+            triggerSpace={() => triggerSpace(i)}
           />
         ))}
       </Board>
+      <button onClick={() => console.log(spaces.filter(s => s.isTriggered).length)}>cll</button>
     </>
   )
 }

@@ -6,6 +6,7 @@ const Space = ({
   boardSettings,
   isTriggered,
   propagate,
+  triggerSpace,
 }) => {
   const [showSpace, setShowSpace] = useState(false)
   const [flagged, setFlagged] = useState(false)
@@ -17,9 +18,10 @@ const Space = ({
   }, [boardSettings, isTriggered])
 
   const handleClick = () => {
-    const { exposedSpaces, setExposedSpaces, status, setStatus } = boardState
+    const { status, setStatus } = boardState
     setShowSpace(true)
-    setExposedSpaces(exposedSpaces + 1)
+    triggerSpace()
+    if (spaceData.isMine) setStatus('loss')
     if (spaceData.value === 0) propagate()
   }
 
