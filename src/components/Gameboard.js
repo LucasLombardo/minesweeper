@@ -19,6 +19,7 @@ const Board = styled.div`
 const Gameboard = ({ boardWidth, mineCount }) => {
   const [status, setStatus] = useState(`live`)
   const [spaces, setSpaces] = useState([])
+  const [flagCount, setFlagCount] = useState(0)
 
   useEffect(() => {
     setSpaces(initializeBoard(boardWidth, mineCount))
@@ -62,11 +63,14 @@ const Gameboard = ({ boardWidth, mineCount }) => {
     checkWin()
   }
 
-  const boardState = { status, setStatus }
+  const boardState = { status, setStatus, flagCount, setFlagCount }
   const boardSettings = `${boardWidth}, ${mineCount}`
   return (
     <>
       <p>{status}</p>
+      <p>
+        Flags: {flagCount}/{mineCount}
+      </p>
       <Board
         style={{ gridTemplateColumns: `repeat(${boardWidth}, ${SPACE_WIDTH})` }}
       >
