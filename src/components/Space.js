@@ -20,7 +20,7 @@ const Space = ({
       setFlagged(false)
     }
     if (spaceData.value === 0 && isTriggered) propagate()
-  }, [boardSettings, isTriggered])
+  }, [boardSettings, isTriggered, spaceData])
 
   const handleClick = () => {
     // dont allow showing space if it is flagged

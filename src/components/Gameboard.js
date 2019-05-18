@@ -25,6 +25,8 @@ const Gameboard = ({ boardWidth, mineCount }) => {
     setSpaces(initializeBoard(boardWidth, mineCount))
   }, [boardWidth, mineCount])
 
+  const resetBoard = () => setSpaces(initializeBoard(boardWidth, mineCount))
+
   const checkWin = () => {
     if (status === "live") {
       // get total number of exposed spaces
@@ -87,11 +89,7 @@ const Gameboard = ({ boardWidth, mineCount }) => {
           />
         ))}
       </Board>
-      <button
-        onClick={() => console.log(spaces.filter(s => s.isTriggered).length)}
-      >
-        cll
-      </button>
+      <button onClick={resetBoard}>Reset</button>
     </>
   )
 }
