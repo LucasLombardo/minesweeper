@@ -10,13 +10,21 @@ const Board = styled.div`
   display: grid;
   justify-content: center;
   margin: 0 auto;
-  grid-gap: 4px;
+  /* grid-gap: 1px; */
+  border: 2px solid slategray;
+  width: fit-content;
+  padding-top: 1px;
   button {
     height: ${SPACE_WIDTH};
   }
+  &.changing {
+    span {
+      opacity: 0;
+    }
+  }
 `
 
-const Gameboard = ({ boardWidth, mineCount }) => {
+const Gameboard = ({ boardWidth, mineCount, preventSpaceFlash, boardClass }) => {
   const [status, setStatus] = useState(`live`)
   const [spaces, setSpaces] = useState([])
   const [flagCount, setFlagCount] = useState(0)
@@ -25,7 +33,10 @@ const Gameboard = ({ boardWidth, mineCount }) => {
     setSpaces(initializeBoard(boardWidth, mineCount))
   }, [boardWidth, mineCount])
 
-  const resetBoard = () => setSpaces(initializeBoard(boardWidth, mineCount))
+  const resetBoard = () => {
+    preventSpaceFlash();
+    setSpaces(initializeBoard(boardWidth, mineCount))
+  }
 
   const checkWin = () => {
     if (status === "live") {
@@ -75,6 +86,7 @@ const Gameboard = ({ boardWidth, mineCount }) => {
       </p>
       <Board
         style={{ gridTemplateColumns: `repeat(${boardWidth}, ${SPACE_WIDTH})` }}
+        className={boardClass}
       >
         {spaces.map((s, i) => (
           <Space

@@ -15,11 +15,19 @@ const Adjusters = styled.div`
 const IndexPage = () => {
   const [width, setWidth] = useState(10)
   const [mines, setMines] = useState(10)
+  const [boardClass, setBoardClass] = useState(`normal`)
+
+  const preventSpaceFlash = () => {
+    setBoardClass('changing');
+    setTimeout(() => setBoardClass('normal'), 100);
+  }
 
   const incrementWidth = () => {
+    preventSpaceFlash()
     if (width < 25) setWidth(width + 1)
   }
   const decrementWidth = () => {
+    preventSpaceFlash()
     if (width > 1) setWidth(width - 1)
     if ((width - 1) ** 2 < mines) {
       setMines((width - 1) ** 2)
@@ -27,9 +35,11 @@ const IndexPage = () => {
   }
 
   const incrementMines = () => {
+    preventSpaceFlash()
     if (mines < width ** 2) setMines(mines + 1)
   }
   const decrementMines = () => {
+    preventSpaceFlash()
     if (mines > 0) setMines(mines - 1)
   }
 
@@ -44,7 +54,7 @@ const IndexPage = () => {
         </ArrowAdjusters>
       </Adjusters>
       <SEO title="Minesweeper" keywords={[`minesweeper`, `react`]} />
-      <Gameboard boardWidth={width} mineCount={mines} />
+      <Gameboard boardClass={boardClass} boardWidth={width} mineCount={mines} preventSpaceFlash={preventSpaceFlash} />
     </Layout>
   )
 }

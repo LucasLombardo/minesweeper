@@ -1,4 +1,15 @@
 import React, { useState, useEffect } from "react"
+import styled from 'styled-components'
+
+const SpaceButton = styled.button`
+  border: 1px solid slategray;
+  background-color: #DDD;
+  outline: none;
+  &.shown {
+    border: 1px solid lightgray;
+    background-color: #FFF;
+  }
+`;
 
 const Space = ({
   spaceData,
@@ -49,12 +60,14 @@ const Space = ({
     setFlagged(!flagged)
   }
 
-  const display = spaceData.isMine ? "💣" : spaceData.value
+  let display = spaceData.isMine ? "💣" : spaceData.value
+  if(display === 0) display = ''
   const unshownDisplay = flagged ? "🚩" : ""
+  const classes = showSpace ? "shown" : "unshown";
   return (
-    <button onClick={handleClick} onContextMenu={handleLeftClick}>
-      {showSpace ? display : unshownDisplay}
-    </button>
+    <SpaceButton className={classes} onClick={handleClick} onContextMenu={handleLeftClick}>
+      <span>{showSpace ? display : unshownDisplay}</span>
+    </SpaceButton>
   )
 }
 
