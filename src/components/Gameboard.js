@@ -10,7 +10,6 @@ const Board = styled.div`
   display: grid;
   justify-content: center;
   margin: 0 auto;
-  /* grid-gap: 1px; */
   border: 2px solid slategray;
   width: fit-content;
   padding-top: 1px;
@@ -30,12 +29,14 @@ const Gameboard = ({ boardWidth, mineCount, preventSpaceFlash, boardClass }) => 
   const [flagCount, setFlagCount] = useState(0)
 
   useEffect(() => {
-    setSpaces(initializeBoard(boardWidth, mineCount))
+    resetBoard();
   }, [boardWidth, mineCount])
 
   const resetBoard = () => {
     preventSpaceFlash();
-    setSpaces(initializeBoard(boardWidth, mineCount))
+    setSpaces(initializeBoard(boardWidth, mineCount));
+    setStatus(`live`);
+    setFlagCount(0);
   }
 
   const checkWin = () => {

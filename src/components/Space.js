@@ -26,8 +26,6 @@ const Space = ({
   useEffect(() => {
     setShowSpace(!!isTriggered)
     if (flagged) {
-      const { flagCount, setFlagCount } = boardState
-      setFlagCount(flagCount - 1)
       setFlagged(false)
     }
     if (spaceData.value === 0 && isTriggered) propagate()
